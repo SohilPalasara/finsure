@@ -20,4 +20,9 @@ public class CardController {
     public ResponseModel getCardsByUser(@PathVariable Long userId) {
         return cardService.getCardsByUserId(userId);
     }
+
+    @GetMapping("/getAllCard")
+    public ResponseModel getAllCard() {
+        return cardService.getAllCard();
+    }
 }
