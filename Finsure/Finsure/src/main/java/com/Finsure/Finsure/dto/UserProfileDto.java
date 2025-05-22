@@ -14,7 +14,8 @@ public class UserProfileDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private long userId;
     private String address;
-    public UserProfile convertToEntity(){
+
+    public UserProfile convertToEntity() {
         UserProfile userProfile = new UserProfile();
 
         userProfile.setFullName(this.FullName);
@@ -22,9 +23,9 @@ public class UserProfileDto {
         userProfile.setPhoneNumber(this.phoneNumber);
         userProfile.setAddress(this.address);
 
-
         return userProfile;
     }
+
     public static UserProfileDto convertToDto(UserProfile userProfile) {
         UserProfileDto userProfileDto = new UserProfileDto();
         userProfileDto.setFullName(userProfile.getFullName());
