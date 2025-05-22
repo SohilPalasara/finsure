@@ -13,8 +13,8 @@ public class RequestMoneyController {
     private RequestMoneyService requestMoneyService;
 
     @PostMapping("/requestMoney")
-    public ResponseModel saveRequestMoney(@RequestBody RequestMoneyDto requestMoneyDto){
-        return requestMoneyService.saveRequest(requestMoneyDto);
+    public ResponseModel requestMoney(@RequestBody RequestMoneyDto requestMoneyDto) {
+        return requestMoneyService.requestMoney(requestMoneyDto);
     }
     @GetMapping("/requestMoney/{userId}")
     public ResponseModel getAllContactsForUser(@PathVariable long userId) {

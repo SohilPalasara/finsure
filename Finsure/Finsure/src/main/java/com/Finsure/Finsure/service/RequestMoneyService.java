@@ -27,37 +27,27 @@ public class RequestMoneyService {
 
     @Autowired
     private CardRepository cardRepository;
+    public ResponseModel requestMoney(RequestMoneyDto dto) {
+        User sender = userRepository.findByUserId(dto.getSenderId());
+        User receiver = userRepository.findByUserId(dto.getReceiverId());
 
-    public ResponseModel saveRequest(RequestMoneyDto requestMoneyDto) {
-
-
-         User user = userRepository.findById(requestMoneyDto.getUserId()).orElse(null);
-        try {
-
-            if (user == null) {
-                return new ResponseModel("data", "User Not Found");
-            }
-            Card existingCard = cardRepository.findFirstByUser_UserId(user.getUserId());
-            if (existingCard != null) {
-                double updatedBalance = existingCard.getBalance() + requestMoneyDto.getAmount();
-                existingCard.setBalance(updatedBalance);
-                cardRepository.save(existingCard);
-            } else {
-                Card newCard = new Card();
-                newCard.setUser(user);
-                newCard.setBalance(requestMoneyDto.getAmount());
-                cardRepository.save(newCard);
-            }
-            RequestMoney requestMoney = requestMoneyDto.convertToEntity(user);
-            requestMoneyRepository.save(requestMoney);
-            requestMoney.setUserId(user);
-
-            return new ResponseModel(requestMoney, "request money successfully ");
-        } catch (Exception e) {
-            return  new ResponseModel("error : " , e.getMessage());
+        if (sender == null || receiver == null) {
+            return new ResponseModel("data", "Sender or Receiver not found.");
         }
+RequestStatus status = RequestStatus . pending;
+        RequestMoney request = dto.convertToEntity(sender, receiver);
 
+        requestMoneyRepository.save(request);
+        return new ResponseModel(request, "Request sent successfully");
     }
+
+    public  ResponseModel acceptRequest(Long requestId) {
+        RequestMoney request = requestMoneyRepository.findByRequestId(requestId);
+        if (request == null || request.) {
+            return new ResponseModel("error", "Invalid or already accepted request.");
+        }
+    }
+
 
     public ResponseModel getRequestByUserId(Long userId) {
         try {

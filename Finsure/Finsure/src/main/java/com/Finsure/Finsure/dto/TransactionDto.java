@@ -13,13 +13,15 @@ public class TransactionDto {
 
     private String message;
 
-    private Long user;
+    private Long senderId;
+    private Long receiverId;
 
-    public Transaction convertToEntity(User user) {
+    public Transaction convertToEntity(User sender, User receiver) {
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
         transaction.setMessage(message);
-        transaction.setUser(user);
+        transaction.setSenderId(sender);
+        transaction.setReceiverId(receiver);
         return transaction;
     }
 
@@ -28,7 +30,13 @@ public class TransactionDto {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAmount(transaction.getAmount());
         transactionDto.setMessage(transaction.getMessage());
-        transactionDto.setUser(transaction.getUser().getUserId());
+        if (transaction.getSenderId() != null) {
+            transactionDto.setSenderId(transaction.getSenderId().getUserId());
+        }
+
+        if (transaction.getReceiverId() != null) {
+            transactionDto.setReceiverId(transaction.getReceiverId().getUserId());
+        }
 
         return transactionDto;
     }

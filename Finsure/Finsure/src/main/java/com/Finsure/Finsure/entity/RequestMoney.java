@@ -21,7 +21,13 @@ public class RequestMoney {
     private String description;
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User userId;
+    private User sender;
+
+    @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private User receiver;
+
+
     private LocalDate monthlyDueByDate;
     private double amount;
 }

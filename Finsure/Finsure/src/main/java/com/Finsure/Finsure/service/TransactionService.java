@@ -25,28 +25,32 @@ public class TransactionService {
 
     public ResponseModel saveTransaction(TransactionDto transactionDto){
 
-        User user = userRepository.findById(transactionDto.getUser()).orElse(null);
-
+        User sender = userRepository.findById(transactionDto.getSenderId()).orElse(null);
+        User receiver = userRepository.findById(transactionDto.getReceiverId()).orElse(null);
         try {
 
-            if (user == null) {
-                return new ResponseModel("data", "User Not Found");
+            if (sender == null || receiver == null) {
+                return new ResponseModel("error", "Sender or Receiver not found");
             }
-            Card existingCard = cardRepository.findFirstByUser_UserId(user.getUserId());
-            if (existingCard != null) {
-                double updatedBalance = existingCard.getBalance() + transactionDto.getAmount();
-                existingCard.setBalance(updatedBalance);
-                cardRepository.save(existingCard);
-            } else {
-                Card newCard = new Card();
-                newCard.setUser(user);
-                newCard.setBalance(transactionDto.getAmount());
-                cardRepository.save(newCard);
-            }
-            Transaction transaction = transactionDto.convertToEntity(user);
-            transactionRepository.save(transaction);
-            transaction.setUser(user);
 
+            Card senderCard = cardRepository.findFirstByUser_UserId(sender.getUserId());
+            if (senderCard == null) {
+                return new ResponseModel(null, "Sender has no card.");
+            }
+            double amount = transactionDto.getAmount();
+            if (senderCard.getBalance() < amount) {
+                return new ResponseModel(null, "Insufficient balance.");
+            }
+            senderCard.setBalance(senderCard.getBalance() - amount);
+            cardRepository.save(senderCard);
+
+            Card receiverCard = cardRepository.findFirstByUser_UserId(receiver.getUserId());
+
+            receiverCard.setBalance(receiverCard.getBalance() + amount);
+            cardRepository.save(receiverCard);
+
+            Transaction transaction = transactionDto.convertToEntity(sender, receiver);
+            transactionRepository.save(transaction);
             return new ResponseModel(transaction, "request money successfully ");
         } catch (Exception e) {
             return  new ResponseModel("error : " , e.getMessage());

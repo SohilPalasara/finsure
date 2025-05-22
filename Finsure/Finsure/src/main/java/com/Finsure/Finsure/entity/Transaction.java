@@ -15,7 +15,10 @@ public class Transaction {
     private long transactionId;
 
     @ManyToOne
-    private User user;
+    private User senderId;
+
+    @ManyToOne
+    private User receiverId;
 
     private Double amount;
 
