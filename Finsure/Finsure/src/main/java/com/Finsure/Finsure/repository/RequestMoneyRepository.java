@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface RequestMoneyRepository extends JpaRepository<RequestMoney , Long> {
-    List<RequestMoney> findByUserId_UserId(Long userId);
+//    List<RequestMoney> findByRequestSender_UserIdOrRequestReceiver_UserId(long userId);
 
-    RequestMoney findByRequestId(Long requestId);
+
+
+    RequestMoney findByRequestMoneyId(Long requestMoneyId);
 }
