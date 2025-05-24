@@ -14,4 +14,6 @@ public interface RequestMoneyRepository extends JpaRepository<RequestMoney , Lon
 
 
     RequestMoney findByRequestMoneyId(Long requestMoneyId);
+
+    List<RequestMoney> findByRequestSender_UserIdOrRequestReceiver_UserId(Long senderId , Long receiveId);
 }

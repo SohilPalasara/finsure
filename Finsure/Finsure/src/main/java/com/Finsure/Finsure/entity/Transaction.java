@@ -14,11 +14,12 @@ public class Transaction {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long transactionId;
 
-    @ManyToOne
-    private User senderId;
 
     @ManyToOne
-    private User receiverId;
+    private User sender;
+
+    @ManyToOne
+    private User receiver;
 
     private Double amount;
 

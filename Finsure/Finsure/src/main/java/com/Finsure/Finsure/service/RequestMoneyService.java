@@ -56,7 +56,7 @@ public class RequestMoneyService {
                 return new ResponseModel("error", "Request is already processed.");
             }
             User sendTheRequest = request.getRequestReceiver();
-            User receiveTheRequest = request.getRequestReceiver();
+            User receiveTheRequest = request.getRequestSender();
             double amount = request.getAmount();
             Card senderCard = cardRepository.findFirstByUser_UserId(sendTheRequest.getUserId());
             Card receiverCard = cardRepository.findFirstByUser_UserId(receiveTheRequest.getUserId());
@@ -73,29 +73,28 @@ public class RequestMoneyService {
         }
     }
 
-//    public ResponseModel getRequestByUserId(Long userId) {
-////        try {
-//            User user = userRepository.findByUserId(userId);
-//            if (user == null) {
-//                return new ResponseModel(HttpStatus.NOT_FOUND, "User does not exist");
-//            }
+    public ResponseModel getRequestByUserId(Long userId) {
+        try {
+            User user = userRepository.findByUserId(userId);
+            if (user == null) {
+                return new ResponseModel(HttpStatus.NOT_FOUND, "User does not exist");
+            }
 
-//            List<RequestMoney> requestMoneyList = requestMoneyRepository.findByRequestSender_UserIdOrRequestReceiver_UserId(userId);
-////            if (requestMoneyList.isEmpty()) {
-////                return new ResponseModel(HttpStatus.NOT_FOUND, "No users found");
-////            }
-//            List<RequestMoneyDto> requestMoneyDtoList = requestMoneyList.stream()
-//                    .map(requestMoney ->  RequestMoneyDto.convertToDto(requestMoney))
-//                    .toList();
+            List<RequestMoney> requestMoneyList = requestMoneyRepository.findByRequestSender_UserIdOrRequestReceiver_UserId(userId,userId);
+            if (requestMoneyList.isEmpty()) {
+                return new ResponseModel(HttpStatus.NOT_FOUND, "No users found");
+            }
+            List<RequestMoneyDto> requestMoneyDtoList = requestMoneyList.stream()
+                    .map(requestMoney ->  RequestMoneyDto.convertToDto(requestMoney))
+                    .toList();
 
-//            return new ResponseModel(requestMoneyDtoList, "request money retrieved successfully");
-//        } catch (Exception e) {
-//            return new ResponseModel("error : ", e.getMessage());
-//        }
-//
-//
-//    }
+            return new ResponseModel(requestMoneyDtoList, "request money retrieved successfully");
+        } catch (Exception e) {
+            return new ResponseModel("error : ", e.getMessage());
+        }
 
+
+    }
             public ResponseModel getAllRequestMoney () {
                 try {
                     List<RequestMoney> requestMoneyList = requestMoneyRepository.findAll();

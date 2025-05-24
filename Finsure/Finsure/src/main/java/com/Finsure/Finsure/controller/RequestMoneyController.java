@@ -20,10 +20,10 @@ public class RequestMoneyController {
     public ResponseModel acceptRequest(@RequestBody RequestMoneyDto requestMoneyDto) {
         return requestMoneyService.acceptRequest(requestMoneyDto);
     }
-//    @GetMapping("/requestMoney/{userId}")
-//    public ResponseModel getAllContactsForUser(@PathVariable long userId) {
-//        return requestMoneyService.getRequestByUserId(userId);
-//    }
+    @GetMapping("/requestMoney/{userId}")
+    public ResponseModel getAllContactsForUser(@PathVariable long userId) {
+        return requestMoneyService.getRequestByUserId(userId);
+    }
     @GetMapping("/getAllRequestMoney")
     public ResponseModel getAllRequestMoney() {
         return requestMoneyService.getAllRequestMoney();

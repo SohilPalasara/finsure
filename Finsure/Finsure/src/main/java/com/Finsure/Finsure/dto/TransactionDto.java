@@ -20,8 +20,8 @@ public class TransactionDto {
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
         transaction.setMessage(message);
-        transaction.setSenderId(sender);
-        transaction.setReceiverId(receiver);
+        transaction.setSender(sender);
+        transaction.setReceiver(receiver);
         return transaction;
     }
 
@@ -30,12 +30,12 @@ public class TransactionDto {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setAmount(transaction.getAmount());
         transactionDto.setMessage(transaction.getMessage());
-        if (transaction.getSenderId() != null) {
-            transactionDto.setSenderId(transaction.getSenderId().getUserId());
+        if (transaction.getSender() != null) {
+            transactionDto.setSenderId(transaction.getSender().getUserId());
         }
 
-        if (transaction.getReceiverId() != null) {
-            transactionDto.setReceiverId(transaction.getReceiverId().getUserId());
+        if (transaction.getReceiver() != null) {
+            transactionDto.setReceiverId(transaction.getReceiver().getUserId());
         }
 
         return transactionDto;
