@@ -13,8 +13,7 @@ public class UserProfile {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-
-    private  int id;
+    private  long id;
     private String FullName;
     private String email;
     private String phoneNumber;

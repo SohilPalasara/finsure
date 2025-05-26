@@ -22,7 +22,7 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cardId;
+    private long cardId;
 
     private long accountNumber;
     private int expiredDate;
