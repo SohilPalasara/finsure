@@ -2,6 +2,7 @@ package com.Finsure.Finsure.service;
 
 import com.Finsure.Finsure.dto.ContactDto;
 import com.Finsure.Finsure.dto.RequestMoneyDto;
+import com.Finsure.Finsure.dto.UserDto;
 import com.Finsure.Finsure.entity.Contact;
 import com.Finsure.Finsure.entity.RequestMoney;
 import com.Finsure.Finsure.entity.User;
@@ -76,5 +77,49 @@ public class ContactService {
             return new ResponseModel("error : ", e.getMessage());
         }
     }
+//
+//    public ResponseModel markContactAsFavorite(Long contactId) {
+//        try {
+//            Contact contact = contactRepository.findContactByContactId(contactId);
+//            if (contact == null) {
+//                return new ResponseModel(HttpStatus.NOT_FOUND, "Contact not found");
+//            }
+//            contact.setFavorite(true);
+//            contactRepository.save(contact);
+//
+//            return new ResponseModel(ContactDto.convertToDto(contact), "Marked as favorite");
+//        } catch (Exception e) {
+//            return new ResponseModel("error", e.getMessage());
+//        }
+//    }
+public ResponseModel FavoriteStatus(Long contactId, boolean isFavorite) {
+    try {
+        Contact contact = contactRepository.findContactByContactId(contactId);
+        if (contact == null) {
+            return new ResponseModel(HttpStatus.NOT_FOUND, "Contact not found");
+        }
+
+        contact.setFavorite(isFavorite);
+        contactRepository.save(contact);
+
+        return new ResponseModel(ContactDto.convertToDto(contact), "Favorite status updated");
+    } catch (Exception e) {
+        return new ResponseModel("error", e.getMessage());
+    }
+}
+    public ResponseModel getFavoriteContacts(Long userId) {
+        try {
+            List<Contact> contacts = contactRepository.findByUser_UserIdAndIsFavoriteTrue(userId);
+
+            List<ContactDto> contactDtoList = contacts.stream()
+                    .map(contact->ContactDto.convertToDto(contact))
+                    .toList();
+            return new ResponseModel(contactDtoList, "Favorite contacts retrieved");
+        } catch (Exception e) {
+            return new ResponseModel("error", e.getMessage());
+        }
+    }
+
+
 
 }

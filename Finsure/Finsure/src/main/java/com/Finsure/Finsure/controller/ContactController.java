@@ -26,4 +26,17 @@ public class    ContactController {
     public ResponseModel getAllContact() {
         return contactService.getAllContact();
     }
+
+    @PutMapping("/contact/{contactId}/favorite")
+    public ResponseModel updateFavoriteStatus(@PathVariable Long contactId, @RequestParam boolean isFavorite) {
+        return contactService.FavoriteStatus(contactId, isFavorite);
+    }
+
+    @GetMapping("/contacts/{userId}/favorites")
+    public ResponseModel getFavoriteContacts(@PathVariable Long userId) {
+        return contactService.getFavoriteContacts(userId);
+    }
+
+
+
 }

@@ -17,7 +17,7 @@ public class UserProfileController {
         return userProfileService.saveProfile(userProfileDto);
     }
 
-    @GetMapping("/getContactsByUserId/{userId}")
+    @GetMapping("/getProfileByUserId/{userId}")
     public ResponseModel  getContactsByUserId (@PathVariable long userId){
         return userProfileService.getContactsByUserId(userId);
     }

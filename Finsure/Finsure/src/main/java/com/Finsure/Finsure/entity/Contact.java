@@ -19,6 +19,9 @@ public class Contact {
 
     private  String name;
     private String phoneNo;
+
+    private boolean isFavorite = false;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     private  User user;
@@ -27,9 +30,10 @@ public class Contact {
     @CreationTimestamp
     private LocalDate created_at;
 
-    public Contact(String name, String phoneNo) {
+    public Contact(String name, String phoneNo , boolean isFavorite ) {
         this.name = name;
         this.phoneNo = phoneNo;
+        this.isFavorite = isFavorite;
 
     }
 }

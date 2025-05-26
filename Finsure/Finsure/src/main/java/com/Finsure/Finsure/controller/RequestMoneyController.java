@@ -20,7 +20,7 @@ public class RequestMoneyController {
     public ResponseModel acceptRequest(@RequestBody RequestMoneyDto requestMoneyDto) {
         return requestMoneyService.acceptRequest(requestMoneyDto);
     }
-    @GetMapping("/requestMoneyByUser/{userId}")
+    @GetMapping("/requestMoneyByUserId/{userId}")
     public ResponseModel getAllContactsForUser(@PathVariable long userId) {
         return requestMoneyService.getRequestByUserId(userId);
     }

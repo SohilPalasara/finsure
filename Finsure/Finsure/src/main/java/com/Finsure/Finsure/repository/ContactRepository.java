@@ -10,4 +10,7 @@ import java.util.List;
 public interface ContactRepository extends JpaRepository<Contact,Long> {
     List<Contact> findByUser_UserId(Long userId);
 
+    Contact findContactByContactId(Long contactId);
+
+    List<Contact> findByUser_UserIdAndIsFavoriteTrue(Long userId);
 }
