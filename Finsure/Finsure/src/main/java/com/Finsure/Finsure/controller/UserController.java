@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
     public class UserController {
         @Autowired
         private UserService userService;
-
         @PostMapping("/signup")
         public ResponseModel signUp(@RequestBody UserDto userDto) {
 
