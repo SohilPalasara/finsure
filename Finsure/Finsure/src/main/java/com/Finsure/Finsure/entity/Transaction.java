@@ -1,5 +1,6 @@
 package com.Finsure.Finsure.entity;
 
+import com.Finsure.Finsure.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,6 +25,8 @@ public class Transaction {
     private Double amount;
 
     private String message;
+
+    private TransactionType type;
 
     @CreationTimestamp
     private LocalDateTime timestamp;

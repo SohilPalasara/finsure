@@ -41,14 +41,18 @@ public class TransactionService {
                 return new ResponseModel(null, "Sender has no card.");
             }
             double amount = transactionDto.getAmount();
-            if (senderCard.getBalance() < amount) {
+            if (senderCard.getBalance() < amount ) {
                 return new ResponseModel(null, "Insufficient balance.");
+            } else if ( senderCard.getDailyLimit()<amount) {
+                return new ResponseModel(null, " daily transaction limit end ");
             }
             senderCard.setBalance(senderCard.getBalance() - amount);
             cardRepository.save(senderCard);
 
             Card receiverCard = cardRepository.findFirstByUser_UserId(receiver.getUserId());
-
+            if (receiverCard == null) {
+                return new ResponseModel(null, "Receiver has no card.");
+            }
             receiverCard.setBalance(receiverCard.getBalance() + amount);
             cardRepository.save(receiverCard);
 
