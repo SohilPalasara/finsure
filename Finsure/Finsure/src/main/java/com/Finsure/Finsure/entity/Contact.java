@@ -16,24 +16,19 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long contactId;
-
     private  String name;
     private String phoneNo;
-
     private boolean isFavorite = false;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne
-    private  User user;
-
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @CreationTimestamp
     private LocalDate created_at;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    private  User user;
 
     public Contact(String name, String phoneNo , boolean isFavorite ) {
         this.name = name;
         this.phoneNo = phoneNo;
         this.isFavorite = isFavorite;
-
     }
 }

@@ -1,31 +1,31 @@
 package com.Finsure.Finsure.controller;
 
 import com.Finsure.Finsure.dto.RequestMoneyDto;
-import com.Finsure.Finsure.service.RequestMoneyService;
+import com.Finsure.Finsure.service.impl.RequestMoneyServiceImpl;
 import com.Finsure.Finsure.utills.ResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users/RequestMoney")
+@RequestMapping("/api/v1/users/RequestMoney")
 public class RequestMoneyController {
     @Autowired
-    private RequestMoneyService requestMoneyService;
+    private RequestMoneyServiceImpl requestMoneyServiceImpl;
 
     @PostMapping("/save/requestMoney")
     public ResponseModel requestMoney(@RequestBody RequestMoneyDto requestMoneyDto) {
-        return requestMoneyService.requestMoney(requestMoneyDto);
+        return requestMoneyServiceImpl.requestMoney(requestMoneyDto);
     }
     @PostMapping("/accept")
     public ResponseModel acceptRequest(@RequestBody RequestMoneyDto requestMoneyDto) {
-        return requestMoneyService.acceptRequest(requestMoneyDto);
+        return requestMoneyServiceImpl.acceptRequest(requestMoneyDto);
     }
     @GetMapping("/requestMoneyByUserId/{userId}")
     public ResponseModel getAllContactsForUser(@PathVariable long userId) {
-        return requestMoneyService.getRequestByUserId(userId);
+        return requestMoneyServiceImpl.getRequestByUserId(userId);
     }
     @GetMapping("/getAllRequestMoney")
     public ResponseModel getAllRequestMoney() {
-        return requestMoneyService.getAllRequestMoney();
+        return requestMoneyServiceImpl.getAllRequestMoney();
     }
 }

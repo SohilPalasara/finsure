@@ -14,8 +14,6 @@ public class ContactDto {
     private long userId;
     private boolean isFavorite;
 
-
-
     public Contact convertToEntity() {
         return new Contact(this.name, this.phoneNo,this.isFavorite);
     }
