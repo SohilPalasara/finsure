@@ -22,7 +22,12 @@ public class RequestMoney {
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User requestSender;
+    private User
+
+
+
+
+            requestSender;
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

@@ -26,6 +26,15 @@ public class TransactionDto {
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
         transaction.setType(this.type);
+
+
+
+
+
+
+
+
+
         return transaction;
     }
 
